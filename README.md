@@ -23,13 +23,13 @@ This project demonstrates how to integrate the OpenAI API with a Svelte applicat
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/yourusername/yourrepository.git
+git clone https://github.com/Paul-VS/chatGPT.git
 ```
 
 2. Install the required dependencies:
 
 ```
-cd yourrepository
+cd chatGPT
 npm install
 ```
 

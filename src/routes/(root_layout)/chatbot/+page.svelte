@@ -1,10 +1,13 @@
 <script>
 	import { supabase, getAccessToken } from '$lib/supabase';
+	import showdown from 'showdown';
 
 	let messageInput = '';
 	let messages = [];
 	let model = 'gpt-3.5-turbo';
 	let isTyping = false;
+
+	const converter = new showdown.Converter();
 
 	const sendMessage = async (message) => {
 		messages = [...messages, { text: message, isUser: true }];
@@ -31,7 +34,10 @@
 
 			const data = await response.json();
 
-			messages = [...messages, { text: data.message, isUser: false }];
+			// Convert the bot's message from Markdown to HTML
+			const botMessageHTML = converter.makeHtml(data.message);
+
+			messages = [...messages, { text: botMessageHTML, isUser: false }];
 		} catch (error) {
 			console.error(error);
 			messages = [...messages, { text: error.message, isUser: false }];
@@ -61,7 +67,7 @@
 <div class="messages">
 	{#each messages as message}
 		<div class={message.isUser ? 'userMessage' : 'botMessage'}>
-			{message.text}
+			{@html message.text}
 		</div>
 	{/each}
 	{#if isTyping}
@@ -119,6 +125,7 @@
 		border-radius: 10px;
 		background-color: #eee;
 		align-self: flex-end;
+		/* white-space: pre-wrap; */
 	}
 
 	form {
