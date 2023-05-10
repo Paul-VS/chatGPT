@@ -1,38 +1,70 @@
-# create-svelte
+# Chatbot with OpenAI and Svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This project demonstrates how to integrate the OpenAI API with a Svelte application to build a chat interface. The AI model used can be either `gpt-3.5-turbo` or `gpt-4` (if available).
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- User-friendly chat interface.
+- Interaction with OpenAI's powerful language models.
+- User session verification with Supabase.
+- Error handling for missing API key, invalid session, and invalid inputs.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Getting Started
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### Prerequisites
+
+- Node.js (>=14.0.0)
+- npm (>=6.14.0)
+- OpenAI API key
+- Supabase API key and URL
+
+### Setup
+
+1. Clone the repository to your local machine:
+
+```
+git clone https://github.com/yourusername/yourrepository.git
 ```
 
-## Developing
+2. Install the required dependencies:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```
+cd yourrepository
+npm install
+```
 
-```bash
+3. Create a `.env` file in the root directory of the project:
+
+```
+OPENAI_API_KEY=your_openai_api_key
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Replace `your_openai_api_key`, `your_supabase_url`, and `your_supabase_anon_key` with your actual keys.
+
+4. Start the development server:
+
+```
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Visit `http://localhost:5000` in your browser to start chatting with the AI.
 
-To create a production version of your app:
+## Usage
 
-```bash
-npm run build
-```
+Type your message into the input field and click "Send" or press enter. You can switch between different AI models using the dropdown menu.
 
-You can preview the production build with `npm run preview`.
+## Contributing
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.
+
+## Acknowledgements
+
+- [OpenAI](https://openai.com/)
+- [Svelte](https://svelte.dev/)
+- [Supabase](https://supabase.io/)
