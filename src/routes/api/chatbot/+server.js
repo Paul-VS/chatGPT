@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 import { OPENAI_API_KEY } from '$env/static/private';
 import { json } from '@sveltejs/kit';
+import { supabase } from '$lib/supabase';
 
 const configuration = new Configuration({
 	apiKey: OPENAI_API_KEY
@@ -10,6 +11,33 @@ const openai = new OpenAIApi(configuration);
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function POST({ request }) {
+	// Get the session token from the request header
+	const token = request.headers.get('authorization').replace('Bearer ', '');
+	if (!token) {
+		return json(
+			{
+				error: {
+					message: 'Authorization header missing'
+				}
+			},
+			401
+		);
+	}
+
+	// Verify the user's session
+	const { error } = await supabase.auth.getUser(token);
+
+	if (error) {
+		return json(
+			{
+				error: {
+					message: 'Invalid session'
+				}
+			},
+			403
+		);
+	}
+
 	if (!configuration.apiKey) {
 		return json(
 			{

@@ -1,4 +1,6 @@
 <script>
+	import { supabase, getAccessToken } from '$lib/supabase';
+
 	let messageInput = '';
 	let messages = [];
 	let model = 'gpt-3.5-turbo';
@@ -7,11 +9,14 @@
 	const sendMessage = async (message) => {
 		messages = [...messages, { text: message, isUser: true }];
 		isTyping = true;
+		let access_token = await getAccessToken();
+
 		try {
 			const response = await fetch('/api/chatbot', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${access_token}`
 				},
 				body: JSON.stringify({ message, model })
 			});
